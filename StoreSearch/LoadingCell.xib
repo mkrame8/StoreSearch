@@ -15,16 +15,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HFB-Lp-Bdv">
-                        <rect key="frame" x="119" y="30" width="96" height="20"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFB-Lp-Bdv">
+                        <rect key="frame" x="160" y="30" width="55" height="20"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qL-An-PC0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qL-An-PC0">
                                 <rect key="frame" x="0.0" y="2" width="68" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-Me-8rU">
+                            <activityIndicatorView opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-Me-8rU">
                                 <rect key="frame" x="76" y="0.0" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -35,13 +35,17 @@
                             <constraint firstAttribute="bottom" secondItem="7qL-An-PC0" secondAttribute="bottom" id="Pzr-cP-yOc"/>
                             <constraint firstItem="u9e-Me-8rU" firstAttribute="top" secondItem="HFB-Lp-Bdv" secondAttribute="top" id="WS8-vp-NEd"/>
                             <constraint firstAttribute="bottom" secondItem="u9e-Me-8rU" secondAttribute="bottom" id="h2H-I1-A5r"/>
-                            <constraint firstItem="7qL-An-PC0" firstAttribute="leading" secondItem="HFB-Lp-Bdv" secondAttribute="leading" id="pGY-oj-g92"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="HFB-Lp-Bdv" secondAttribute="bottom" constant="30" id="HnI-HN-1kx"/>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerX" secondItem="oxD-vS-yrv" secondAttribute="centerX" id="PW9-AX-gid"/>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="leading" secondItem="oxD-vS-yrv" secondAttribute="leading" constant="160" id="dxR-kE-oCM"/>
                     <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerY" secondItem="oxD-vS-yrv" secondAttribute="centerY" id="iDw-bS-Wns"/>
-                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerX" secondItem="oxD-vS-yrv" secondAttribute="centerX" id="w8R-Nh-0dc"/>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="top" secondItem="oxD-vS-yrv" secondAttribute="top" constant="30" id="izl-oW-7PC"/>
+                    <constraint firstAttribute="trailing" secondItem="HFB-Lp-Bdv" secondAttribute="trailing" constant="160" id="tUa-2a-AjX"/>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerY" secondItem="oxD-vS-yrv" secondAttribute="centerY" id="wOd-5W-Lld"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="-335.50724637681162" y="-76.339285714285708"/>
