@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoadingCell" id="vyM-4b-bnQ">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vyM-4b-bnQ" id="oxD-vS-yrv">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HFB-Lp-Bdv">
+                        <rect key="frame" x="119" y="30" width="96" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qL-An-PC0">
+                                <rect key="frame" x="0.0" y="2" width="68" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-Me-8rU">
+                                <rect key="frame" x="76" y="0.0" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7qL-An-PC0" firstAttribute="top" secondItem="HFB-Lp-Bdv" secondAttribute="top" constant="2" id="2HO-tX-zrr"/>
+                            <constraint firstItem="u9e-Me-8rU" firstAttribute="leading" secondItem="7qL-An-PC0" secondAttribute="trailing" constant="8" id="Bb7-xt-nF6"/>
+                            <constraint firstAttribute="bottom" secondItem="7qL-An-PC0" secondAttribute="bottom" id="Pzr-cP-yOc"/>
+                            <constraint firstItem="u9e-Me-8rU" firstAttribute="top" secondItem="HFB-Lp-Bdv" secondAttribute="top" id="WS8-vp-NEd"/>
+                            <constraint firstAttribute="bottom" secondItem="u9e-Me-8rU" secondAttribute="bottom" id="h2H-I1-A5r"/>
+                            <constraint firstItem="7qL-An-PC0" firstAttribute="leading" secondItem="HFB-Lp-Bdv" secondAttribute="leading" id="pGY-oj-g92"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerY" secondItem="oxD-vS-yrv" secondAttribute="centerY" id="iDw-bS-Wns"/>
+                    <constraint firstItem="HFB-Lp-Bdv" firstAttribute="centerX" secondItem="oxD-vS-yrv" secondAttribute="centerX" id="w8R-Nh-0dc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-335.50724637681162" y="-76.339285714285708"/>
+        </tableViewCell>
+    </objects>
+</document>
