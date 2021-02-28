@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  StoreSearch
+
+  Created by Melanie Kramer on 2/28/21.
+  Copyright © 2021 Melanie Kramer. All rights reserved.
+*/
+"Album" = "Album";
+"App" = "App";
+"Audio Book" = "Audio Boek";
+"Book" = "Boek";
+"E-Book" = "E-Boek";
+"Movie" = "Film";
+"Music Video" = "Videclip";
+"Podcast" = "Podcast";
+"Song" = "Liedje!";
+"TV Episode" = "TV serie";
+"Nothing Found" = "Niets gevonden";
+
+"There was an error reading from the iTunes Store. Please try again." = "Er ging iets fout bij het communiceren met de iTunes winkel. Probeer het nog eens.";
+"Unknown" = "Onbekend";
+"Whoops..." = "Foutje...";
