@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var priceButton: UIButton!
     var searchResult: SearchResult!
     var downloadTask: URLSessionDownloadTask?
-
+    var dismissStyle = AnimationStyle.fade
 
     @IBAction func openInStore() {
         if let url = URL(string: searchResult.storeURL) {
@@ -43,8 +43,13 @@ class DetailViewController: UIViewController {
         if searchResult != nil {
             updateUI()
         }
+        view.backgroundColor = UIColor.clear
     }
 
+    enum AnimationStyle {
+        case slide
+        case fade
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .custom
@@ -56,6 +61,7 @@ class DetailViewController: UIViewController {
     }
     // MARK:- Actions
     @IBAction func close() {
+        dismissStyle = .slide
         dismiss(animated: true, completion: nil)
     }
     
@@ -97,6 +103,21 @@ UIViewControllerTransitioningDelegate {
         UIPresentationController? {
             return DimmingPresentationController(presentedViewController: presented,
                             presenting: presenting)
+    }
+    func animationController(forPresented presented:
+        UIViewController, presenting: UIViewController,
+                          source: UIViewController) ->
+        UIViewControllerAnimatedTransitioning? {
+            return BounceAnimationController()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        switch dismissStyle {
+        case .slide:
+            return SlideOutAnimationController()
+        case .fade:
+            return FadeOutAnimationController()
+        }
     }
 }
 
