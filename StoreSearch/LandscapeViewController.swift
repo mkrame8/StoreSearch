@@ -14,7 +14,20 @@ class LandscapeViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     var searchResults = [SearchResult]()
     private var firstTime = true
+    private var downloads = [URLSessionDownloadTask]()
     
+    // MARK:- Actions
+    @IBAction func pageChanged(_ sender: UIPageControl) {
+        scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width *
+            CGFloat(sender.currentPage), y: 0)
+    }
+    
+    deinit {
+        print("deinit \(self)")
+        for task in downloads {
+            task.cancel()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.removeConstraints(view.constraints)
@@ -23,7 +36,8 @@ class LandscapeViewController: UIViewController {
         pageControl.translatesAutoresizingMaskIntoConstraints = true
         scrollView.removeConstraints(scrollView.constraints)
         scrollView.translatesAutoresizingMaskIntoConstraints = true
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground-dark")!)
+        pageControl.numberOfPages = 0
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -59,8 +73,10 @@ class LandscapeViewController: UIViewController {
         var x = marginX
         // buttons
         for (index, result) in searchResults.enumerated() {
-            let button = UIButton(type: .system)
-            button.backgroundColor = UIColor.white
+            let button = UIButton(type: .custom)
+            downloadImage(for: result, andPlaceOn: button)
+            button.setBackgroundImage(UIImage(named: "LandscapeButton-dark"),
+                                   for: .normal)
             button.setTitle("\(index)", for: .normal)
             button.frame = CGRect(x: x + paddingHorz,
                                   y: marginY + CGFloat(row)*itemHeight + paddingVert,
@@ -112,16 +128,36 @@ class LandscapeViewController: UIViewController {
         scrollView.contentSize = CGSize(width: CGFloat(numPages) * viewWidth,
                                         height: scrollView.bounds.size.height)
         print("Number of pages: \(numPages)")
+        pageControl.numberOfPages = numPages
+        pageControl.currentPage = 0
+    }
+    
+    private func downloadImage(for searchResult: SearchResult,
+                               andPlaceOn button: UIButton) {
+        if let url = URL(string: searchResult.imageSmall) {
+            let task = URLSession.shared.downloadTask(with: url) {
+                [weak button] url, response, error in
+                if error == nil, let url = url,
+                    let data = try? Data(contentsOf: url),
+                    let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        if let button = button {
+                            button.setImage(image, for: .normal)
+                        }
+                    }
+                }
+            }
+            task.resume()
+            downloads.append(task)
+        }
     }
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension LandscapeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.bounds.size.width
+        let page = Int((scrollView.contentOffset.x + width / 2) / width)
+        pageControl.currentPage = page
     }
-    */
-
 }
