@@ -39,7 +39,9 @@ class Search {
   private(set) var state: State = .notSearchedYet
   private var dataTask: URLSessionDataTask? = nil
   
+    // perform search from user input
   func performSearch(for text: String, category: Category, completion: @escaping SearchComplete) {
+    // if text field is empty
     if !text.isEmpty {
       dataTask?.cancel()
       state = .loading
@@ -52,7 +54,7 @@ class Search {
         if let error = error as NSError?, error.code == -999 {
           return
         }
-        
+        // parse the data received
         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let data = data {
           var searchResults = self.parse(data: data)
           if searchResults.isEmpty {
@@ -73,6 +75,7 @@ class Search {
   }
   
   // MARK:- Private Methods
+    // will create and return the generated itunes url
   private func iTunesURL(searchText: String, category: Category) -> URL {
     let locale = Locale.autoupdatingCurrent
     let language = locale.identifier
@@ -85,6 +88,8 @@ class Search {
     return url!
   }
   
+    // parse the JSON data received
+    // return the results
   private func parse(data: Data) -> [SearchResult] {
     do {
       let decoder = JSONDecoder()

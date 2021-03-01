@@ -10,23 +10,24 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-  @IBOutlet weak var searchBar: UISearchBar!
-  @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-  private let search = Search()
-  var landscapeVC: LandscapeViewController?
-  weak var splitViewDetail: DetailViewController?
+    private let search = Search()
+    var landscapeVC: LandscapeViewController?
+    weak var splitViewDetail: DetailViewController?
   
-  struct TableView {
-    struct CellIdentifiers {
-      static let searchResultCell = "SearchResultCell"
-      static let nothingFoundCell = "NothingFoundCell"
-      static let loadingCell = "LoadingCell"
+    struct TableView {
+        struct CellIdentifiers {
+            static let searchResultCell = "SearchResultCell"
+            static let nothingFoundCell = "NothingFoundCell"
+            static let loadingCell = "LoadingCell"
     }
   }
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        // initialize all the cells
     tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0, right: 0)
     var cellNib = UINib(nibName: TableView.CellIdentifiers.searchResultCell, bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.searchResultCell)
@@ -34,10 +35,11 @@ class SearchViewController: UIViewController {
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
     cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
+        // if device is not ipad, bring up search bar
     if UIDevice.current.userInterfaceIdiom != .pad {
       searchBar.becomeFirstResponder()
     }
-    
+    // set colors
     let segmentColor = UIColor(red: 10/255, green: 80/255, blue: 80/255, alpha: 1)
     let selectedTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     let normalTextAttributes = [NSAttributedString.Key.foregroundColor: segmentColor]
@@ -51,7 +53,7 @@ class SearchViewController: UIViewController {
 
   override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
     super.willTransition(to: newCollection, with: coordinator)
-    
+    // set bounds
     let rect = UIScreen.main.bounds
     if (rect.width == 736 && rect.height == 414) || (rect.width == 414 && rect.height == 736) {
       if presentedViewController != nil {
@@ -68,12 +70,13 @@ class SearchViewController: UIViewController {
       }
     }
   }
-  
+  // if user taps new segment, perform new search
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         performSearch()
     }
     
   // MARK:- Navigation
+    // prepare for segue
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "ShowDetail" {
       if case .results(let list) = search.state {
@@ -94,7 +97,7 @@ class SearchViewController: UIViewController {
     alert.addAction(action)
     present(alert, animated: true, completion: nil)
   }
-  
+  // will display landscape
   func showLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
     guard landscapeVC == nil else { return }
     landscapeVC = storyboard!.instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController
@@ -115,7 +118,7 @@ class SearchViewController: UIViewController {
         controller.didMove(toParent: self)
       })    }
   }
-  
+  // will hide landscape
   func hideLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
     if let controller = landscapeVC {
       controller.willMove(toParent: nil)
@@ -137,11 +140,11 @@ extension SearchViewController: UISearchBarDelegate {
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     return .topAttached
   }
-    
+    // if search bar button clicked, perform search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performSearch()
     }
-    
+    // perform search
   func performSearch() {
     if let category = Search.Category(
       rawValue: segmentedControl.selectedSegmentIndex) {
@@ -152,7 +155,6 @@ extension SearchViewController: UISearchBarDelegate {
         self.tableView.reloadData()
         self.landscapeVC?.searchResultsReceived()
       })
-      
       tableView.reloadData()
       searchBar.resignFirstResponder()
     }

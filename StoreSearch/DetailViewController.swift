@@ -53,12 +53,14 @@ class DetailViewController: UIViewController {
       updateUI()
     }
     
+    // pop up view is true
     if isPopUp {
       let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
       gestureRecognizer.cancelsTouchesInView = false
       gestureRecognizer.delegate = self
       view.addGestureRecognizer(gestureRecognizer)
       view.backgroundColor = UIColor.clear
+        // pop up view not true
     } else {
       view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground-dark")!)
       popupView.isHidden = true
@@ -67,18 +69,19 @@ class DetailViewController: UIViewController {
       }
     }
   }
-  
+  // cancel task
   deinit {
     print("deinit \(self)")
     downloadTask?.cancel()
   }
   
   // MARK:- Actions
+    // close the view with animation
   @IBAction func close() {
     dismissStyle = .slide
     dismiss(animated: true, completion: nil)
   }
-  
+  // open the item in the itunes store
   @IBAction func openInStore() {
     if let url = URL(string: searchResult.storeURL) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -86,6 +89,7 @@ class DetailViewController: UIViewController {
   }
   
   // MARK:- Navigation
+    // segue to menuviewcontroller
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "ShowMenu" {
       let controller = segue.destination as! MenuViewController
@@ -94,9 +98,12 @@ class DetailViewController: UIViewController {
   }
   
   // MARK:- Helper Methods
+    // update the user interface
+    // update labels
   func updateUI() {
     nameLabel.text = searchResult.name
     
+    // if search result is empty
     if searchResult.artist.isEmpty {
       artistNameLabel.text = NSLocalizedString("Unknown", comment: "Artist name: Unknown")
     } else {
@@ -127,16 +134,16 @@ class DetailViewController: UIViewController {
     popupView.isHidden = false
   }
 }
-
+// dimm animation
 extension DetailViewController: UIViewControllerTransitioningDelegate {
   func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
     return DimmingPresentationController(presentedViewController: presented, presenting: presenting)
   }
-  
+  // bounce animation
   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
       return BounceAnimationController()
   }
-  
+  // fade and slide animation
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     switch dismissStyle {
     case .slide:
@@ -153,13 +160,14 @@ extension DetailViewController: UIGestureRecognizerDelegate {
   }
 }
 
+// email template sheet
 extension DetailViewController: MenuViewControllerDelegate {
   func menuViewControllerSendEmail(_: MenuViewController) {
     dismiss(animated: true) {
       if MFMailComposeViewController.canSendMail() {
         let controller = MFMailComposeViewController()
         controller.setSubject(NSLocalizedString("Support Request", comment: "Email subject"))
-        controller.setToRecipients(["your@email-address-here.com"])
+        controller.setToRecipients(["mkrame8@live.spcollege.edu"])
         controller.mailComposeDelegate = self
         controller.modalPresentationStyle = .formSheet
         self.present(controller, animated: true, completion: nil)
